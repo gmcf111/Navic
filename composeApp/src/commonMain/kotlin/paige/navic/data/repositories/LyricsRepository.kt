@@ -16,7 +16,6 @@ import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import org.jetbrains.compose.resources.StringResource
 import paige.navic.data.session.SessionManager
 import paige.subsonic.api.models.Track
 import kotlin.time.Duration

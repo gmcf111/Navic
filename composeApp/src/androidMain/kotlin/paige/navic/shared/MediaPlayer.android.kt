@@ -383,33 +383,22 @@ class AndroidMediaPlayerViewModel(
 	}
 
 	private fun Track.toMediaItem(single: Boolean): MediaItem {
-		if (single) {
-			val metadata = MediaMetadata.Builder()
-				.setTitle(title)
-				.setArtist(artist)
-				.setAlbumTitle(album)
-				.setArtworkUri(coverArt?.toUri())
-				.build()
+		val metadata = MediaMetadata.Builder()
+			.setTitle(title)
+			.setArtist(artist)
+			.setAlbumTitle(album)
+			.setArtworkUri(
+				if (single)
+					coverArt?.toUri()
+				else SessionManager.api.getCoverArtUrl(coverArt, auth = true)?.toUri()
+			)
+			.build()
 
-			return MediaItem.Builder()
-				.setUri(SessionManager.api.streamUrl(id))
-				.setMediaId(id)
-				.setMediaMetadata(metadata)
-				.build()
-		} else {
-			val metadata = MediaMetadata.Builder()
-				.setTitle(title)
-				.setArtist(artist)
-				.setAlbumTitle(album)
-				.setArtworkUri(SessionManager.api.getCoverArtUrl(coverArt, auth = true)?.toUri())
-				.build()
-
-			return MediaItem.Builder()
-				.setUri(SessionManager.api.streamUrl(id))
-				.setMediaId(id)
-				.setMediaMetadata(metadata)
-				.build()
-		}
+		return MediaItem.Builder()
+			.setUri(SessionManager.api.streamUrl(id))
+			.setMediaId(id)
+			.setMediaMetadata(metadata)
+			.build()
 	}
 }
 

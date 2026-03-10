@@ -57,7 +57,6 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import ir.mahozad.multiplatform.wavyslider.material3.WaveAnimationSpecs
 import ir.mahozad.multiplatform.wavyslider.material3.WavySlider
 import kotlinx.coroutines.launch
@@ -99,7 +98,6 @@ import paige.navic.ui.components.common.DropdownItem
 import paige.navic.ui.components.common.MarqueeText
 import paige.navic.ui.components.common.playPauseIconPainter
 import paige.navic.ui.components.layouts.Swiper
-import paige.navic.ui.viewmodels.PlayerViewModel
 import paige.navic.utils.rememberTrackPainter
 import paige.navic.utils.toHoursMinutesSeconds
 import paige.subsonic.api.models.Playlist
@@ -107,9 +105,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun PlayerScreen(
-	viewModel: PlayerViewModel = viewModel { PlayerViewModel() }
-) {
+fun PlayerScreen() {
 	val ctx = LocalCtx.current
 	val player = LocalMediaPlayer.current
 	val backStack = LocalNavStack.current
@@ -333,7 +329,7 @@ fun PlayerScreen(
 
 		LaunchedEffect(isPressed) {
 			if (!isPressed) {
-				if (scale.value != 1f || isPressed) {
+				if (scale.value != 1f) {
 					scale.animateTo(
 						targetValue = 1.2f,
 						animationSpec = tween(durationMillis = 100, easing = FastOutSlowInEasing)
@@ -461,7 +457,7 @@ fun PlayerScreen(
 				SliderDefaults.Thumb(
 					enabled = enabled,
 					thumbSize = DpSize(4.dp, 32.dp),
-					interactionSource = MutableInteractionSource()
+					interactionSource = remember { MutableInteractionSource() }
 				)
 			},
 			enabled = enabled,

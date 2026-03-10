@@ -235,7 +235,7 @@ class Settings(
 	var accentColourV by preference(1f)
 
 	companion object {
-		val shared = paige.navic.data.models.Settings(
+		val shared = Settings(
 			com.russhwolf.settings.Settings()
 		)
 	}
