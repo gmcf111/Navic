@@ -59,7 +59,6 @@ import navic.composeapp.generated.resources.info_error
 import navic.composeapp.generated.resources.info_no_shares
 import navic.composeapp.generated.resources.info_share_expired
 import navic.composeapp.generated.resources.info_share_expires_in
-import navic.composeapp.generated.resources.info_share_expires_never
 import navic.composeapp.generated.resources.info_shared_by
 import navic.composeapp.generated.resources.title_shares
 import org.jetbrains.compose.resources.getString
@@ -183,7 +182,7 @@ private fun SharesScreenItem(
 	}
 
 	LaunchedEffect(share.expiresAt) {
-		while (share.expiresAt != null) {
+		while (true) {
 			delay(1.seconds)
 			currentTime = Clock.System.now()
 		}
@@ -220,20 +219,16 @@ private fun SharesScreenItem(
 					},
 					overlineContent = {
 						val expires = share.expiresAt
-						if (expires != null) {
-							val remaining = expires - currentTime
-							if (remaining.isPositive()) {
-								Text(
-									stringResource(
-										Res.string.info_share_expires_in,
-										remaining.toHoursMinutesSeconds()
-									)
+						val remaining = expires - currentTime
+						if (remaining.isPositive()) {
+							Text(
+								stringResource(
+									Res.string.info_share_expires_in,
+									remaining.toHoursMinutesSeconds()
 								)
-							} else {
-								Text(stringResource(Res.string.info_share_expired))
-							}
+							)
 						} else {
-							Text(stringResource(Res.string.info_share_expires_never))
+							Text(stringResource(Res.string.info_share_expired))
 						}
 					},
 					onClick = {

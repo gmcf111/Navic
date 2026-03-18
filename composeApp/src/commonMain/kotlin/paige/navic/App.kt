@@ -173,9 +173,11 @@ fun App() {
 							.fillMaxSize()
 							.background(MaterialTheme.colorScheme.surface),
 						backStack = backStack,
-						sceneStrategy = remember { BottomSheetSceneStrategy<NavKey>() }
-							then remember { DialogSceneStrategy() }
-							then rememberListDetailSceneStrategy(),
+						sceneStrategies = listOf(
+							remember { BottomSheetSceneStrategy() },
+							remember { DialogSceneStrategy() },
+							rememberListDetailSceneStrategy()
+						),
 						onBack = { backStack.removeLastOrNull() },
 						entryProvider = entryProvider(backStack),
 						transitionSpec = {
