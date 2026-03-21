@@ -1,6 +1,5 @@
 package paige.navic.ui.screens.tracks
 
-import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -114,7 +113,8 @@ fun TracksScreen(
 				item {
 					TracksScreenHeadingRow(
 						partialTracks = partialTracks,
-						tab = tab
+						tab = tab,
+						scrolled = scrolled
 					)
 				}
 
@@ -160,10 +160,10 @@ fun TracksScreen(
 					}
 				}
 
-				item { TracksScreenFooterRow(partialTracks) }
+				item { TracksScreenFooterRow(tracks) }
 
 				tracksScreenMoreByArtistRow(
-					partialTracks = partialTracks,
+					tracks = tracks,
 					artistState = artistState,
 					tab = tab
 				)

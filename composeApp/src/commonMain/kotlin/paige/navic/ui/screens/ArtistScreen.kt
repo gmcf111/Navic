@@ -52,7 +52,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -182,7 +184,8 @@ fun ArtistScreen(
 							lastfm = (artistState as? UiState.Success)?.data?.info?.lastFmUrl,
 							innerPadding = contentPadding,
 							onPlay = { viewModel.playArtistAlbums(player) },
-							playEnabled = state.albums.isNotEmpty()
+							playEnabled = state.albums.isNotEmpty(),
+							scrolled = scrolled
 						)
 						Column(
 							modifier = Modifier
@@ -297,10 +300,12 @@ private fun ArtistScreenHeader(
 	lastfm: String?,
 	innerPadding: PaddingValues,
 	onPlay: () -> Unit,
-	playEnabled: Boolean
+	playEnabled: Boolean,
+	scrolled: Boolean
 ) {
 	val ctx = LocalCtx.current
 	val layoutDirection = LocalLayoutDirection.current
+	val progress by animateFloatAsState(if (scrolled) 0f else 1f)
 	BoxWithConstraints(
 		modifier = Modifier.fillMaxWidth()
 	) {
@@ -361,7 +366,8 @@ private fun ArtistScreenHeader(
 				}
 				Row(
 					modifier = Modifier.fillMaxWidth(),
-					verticalAlignment = Alignment.CenterVertically
+					verticalAlignment = Alignment.CenterVertically,
+					horizontalArrangement = Arrangement.spacedBy(8.dp)
 				) {
 					MarqueeText(
 						text = artistName,
@@ -369,7 +375,7 @@ private fun ArtistScreenHeader(
 							fontWeight = FontWeight.Bold,
 							color = Color.White
 						),
-						modifier = Modifier.weight(1f)
+						modifier = Modifier.weight(1f).alpha(progress).scale(progress)
 					)
 					Box(
 						modifier = Modifier
