@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -61,6 +62,7 @@ import paige.navic.LocalSnackbarState
 import paige.navic.data.models.settings.Settings
 import paige.navic.data.models.settings.enums.BottomBarVisibilityMode
 import paige.navic.icons.Icons
+import paige.navic.icons.filled.ShareOff
 import paige.navic.icons.outlined.Delete
 import paige.navic.icons.outlined.Share
 import paige.navic.ui.components.common.CoverArt
@@ -110,7 +112,10 @@ fun SharesScreen(
 						.nestedScroll(scrollBehavior.nestedScrollConnection),
 					columns = GridCells.Fixed(1),
 					contentPadding = contentPadding.withoutTop(),
-					state = viewModel.gridState
+					state = viewModel.gridState,
+					verticalArrangement = if ((state as? UiState.Success)?.data?.isEmpty() == true)
+						Arrangement.Center
+					else Arrangement.Top
 				) {
 					when (state) {
 						is UiState.Loading -> { return@LazyVerticalGrid }
@@ -128,15 +133,19 @@ fun SharesScreen(
 							if (state.data.isEmpty()) {
 								item(span = { GridItemSpan(maxLineSpan) }) {
 									Column(
-										modifier = Modifier.fillMaxSize(),
+										modifier = Modifier.fillMaxWidth().alpha(.6f),
 										horizontalAlignment = Alignment.CenterHorizontally,
-										verticalArrangement = Arrangement.Center
+										verticalArrangement = Arrangement.spacedBy(8.dp)
 									) {
+										Icon(
+											Icons.Filled.ShareOff,
+											contentDescription = null,
+											modifier = Modifier.size(64.dp)
+										)
 										Text(
 											stringResource(Res.string.info_no_shares),
 											style = MaterialTheme.typography.headlineMedium,
-											textAlign = TextAlign.Center,
-											modifier = Modifier.alpha(.5f)
+											textAlign = TextAlign.Center
 										)
 									}
 								}
