@@ -74,7 +74,7 @@ class LoginViewModel(
 			try {
 				val url = instanceState.text.toString().let {
 					if (!it.startsWith("https://") && !it.startsWith("http://")) "https://$it" else it
-				}
+				}.trim()
 
 				SessionManager.login(
 					url,
