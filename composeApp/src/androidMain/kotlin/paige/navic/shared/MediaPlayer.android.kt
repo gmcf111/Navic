@@ -540,7 +540,6 @@ class AndroidMediaPlayerViewModel(
 				filePath = radio.streamUrl,
 				starredAt = null,
 				musicBrainzId = null,
-				coverArtId = null,
 				createdAt = null
 			)
 
