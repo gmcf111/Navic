@@ -57,7 +57,7 @@ fun ApiSong.toEntity() = SongEntity(
 			fallbackGain = it.fallbackGain
 		)
 	},
-	createdAt = this.created
+	createdAt = this.createdAt
 )
 
 fun SongEntity.toDomainModel() = DomainSong(

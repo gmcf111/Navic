@@ -539,7 +539,9 @@ class AndroidMediaPlayerViewModel(
 				mimeType = "",
 				filePath = radio.streamUrl,
 				starredAt = null,
-				musicBrainzId = null
+				musicBrainzId = null,
+				coverArtId = null,
+				createdAt = null
 			)
 
 			val metadata = MediaMetadata.Builder()
