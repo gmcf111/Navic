@@ -172,7 +172,7 @@ class DbRepository(
 
 			val albumEntities = fullAlbums.map { it.toEntity() }
 			val songEntities = fullAlbums.flatMap { album ->
-				album.songs.map { it.toEntity() }
+				album.songs.map { it.toEntity(album.createdAt) }
 			}
 
 			allValidAlbumIds.addAll(albumEntities.map { it.albumId })

@@ -5,9 +5,10 @@ import paige.navic.domain.models.DomainContributor
 import paige.navic.domain.models.DomainReplayGain
 import paige.navic.domain.models.DomainSong
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 import dev.zt64.subsonic.api.model.Song as ApiSong
 
-fun ApiSong.toEntity() = SongEntity(
+fun ApiSong.toEntity(createdAt: Instant? = null) = SongEntity(
 	songId = this.id,
 	title = this.title,
 	artistName = this.artistName,
@@ -57,7 +58,7 @@ fun ApiSong.toEntity() = SongEntity(
 			fallbackGain = it.fallbackGain
 		)
 	},
-	createdAt = this.created
+	createdAt = createdAt
 )
 
 fun SongEntity.toDomainModel() = DomainSong(
