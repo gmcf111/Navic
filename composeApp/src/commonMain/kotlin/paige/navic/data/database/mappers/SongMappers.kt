@@ -60,19 +60,6 @@ fun ApiSong.toEntity(createdAt: Instant? = null) = SongEntity(
 	},
 	createdAt = createdAt
 )
-	},
-	replayGain = this.replayGain?.let {
-		DomainReplayGain(
-			albumGain = it.albumGain,
-			albumPeak = it.albumPeak,
-			trackGain = it.trackGain,
-			trackPeak = it.trackPeak,
-			baseGain = it.baseGain,
-			fallbackGain = it.fallbackGain
-		)
-	},
-	createdAt = createdAt
-)
 
 fun SongEntity.toDomainModel() = DomainSong(
 	id = this.songId,
