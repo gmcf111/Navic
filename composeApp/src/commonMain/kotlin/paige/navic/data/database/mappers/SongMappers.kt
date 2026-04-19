@@ -57,6 +57,7 @@ fun ApiSong.toEntity() = SongEntity(
 			fallbackGain = it.fallbackGain
 		)
 	},
+	createdAt = this.created
 )
 
 fun SongEntity.toDomainModel() = DomainSong(
@@ -93,6 +94,7 @@ fun SongEntity.toDomainModel() = DomainSong(
 	musicBrainzId = this.musicBrainzId,
 	contributors = this.contributors,
 	replayGain = this.replayGain,
+	createdAt = this.createdAt
 )
 
 fun DomainSong.toEntity() = SongEntity(
@@ -128,5 +130,6 @@ fun DomainSong.toEntity() = SongEntity(
 	fileSize = this.fileSize,
 	musicBrainzId = this.musicBrainzId,
 	replayGain = this.replayGain,
-	contributors = this.contributors
+	contributors = this.contributors,
+	createdAt = this.createdAt
 )

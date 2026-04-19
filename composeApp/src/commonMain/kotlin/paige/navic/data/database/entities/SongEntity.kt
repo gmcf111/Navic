@@ -43,5 +43,6 @@ data class SongEntity(
 	val filePath: String?,
 	val starredAt: Instant?,
 	val coverArtId: String?,
-	val musicBrainzId: String?
+	val musicBrainzId: String?,
+	val createdAt: Instant?
 )

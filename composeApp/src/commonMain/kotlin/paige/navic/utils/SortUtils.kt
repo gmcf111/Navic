@@ -18,6 +18,7 @@ suspend fun ImmutableList<DomainSong>.sortedByListType(
 		DomainSongListType.FrequentlyPlayed -> sortedByDescending { it.playCount }
 		DomainSongListType.Starred -> filter { it.starredAt != null }.sortedBy { it.starredAt }
 		DomainSongListType.Random -> shuffled()
+		DomainSongListType.Newest -> sortedByDescending { it.createdAt }
 		DomainSongListType.Downloaded -> filter { song ->
 			downloadDao.getAllDownloadsList()
 				.filter { it.status == DownloadStatus.DOWNLOADED }
